@@ -29,10 +29,6 @@ def generate_launch_description():
         executable='myviz'
     )
 
-    # joint_state_publisher = Node(
-    #     package='joint_state_publisher_gui',
-    #     executable='joint_state_publisher_gui')
-
     ld.add_action(robot_state_pub)
     ld.add_action(main_monitor)
 
