@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Define the path to the URDF file -->
+    <param name="robot_description" textfile="$(find car_desc)/urdf/mobil.urdf.xacro" />
+
+    <!-- Robot State Publisher Node -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+        <!-- Load the URDF parameter -->
+        <param name="robot_description" command="$(find xacro)/xacro $(find car_desc)/urdf/mobil.urdf.xacro" />
+    </node>
+
+    <!-- Main Monitor Node -->
+    <node name="main_monitor" pkg="gui_icar" type="myviz" output="screen">
+    </node>
+</launch>
