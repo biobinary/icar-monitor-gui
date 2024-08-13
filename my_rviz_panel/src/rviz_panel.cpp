@@ -34,9 +34,9 @@
 #include <QLabel>
 #include <QSlider>
 #include <QVBoxLayout>
-#include <QLCDNumber>
 #include <QTimer>
 #include <QTime>
+#include <QProgressBar>
 
 #include <memory>
 
@@ -93,10 +93,22 @@ MyViz::MyViz(
 
   QVBoxLayout *left_layout = new QVBoxLayout(left_widget);
 
-  QLabel *clock_label = new QLabel("00:00:00");
-  clock_label->setAlignment(Qt::AlignCenter);
-  clock_label->setStyleSheet("font-size: 20px; color: #EEEEEE;");
-  left_layout->addWidget(clock_label);
+  QProgressBar *battery_bar = new QProgressBar();
+  battery_bar->setRange(0, 100);
+  battery_bar->setValue(10);
+  battery_bar->setOrientation(Qt::Horizontal);
+  battery_bar->setTextVisible(false);  
+  battery_bar->setStyleSheet("QProgressBar::chunk {background-color: #3282B8; width: 20px; } QProgressBar { background-color: #EEEEEE; }");
+
+  QLabel *battery_label = new QLabel("100%");
+  battery_label->setAlignment(Qt::AlignCenter);
+  battery_label->setStyleSheet("color: #EEEEEE;");
+
+  QHBoxLayout *battery_layout = new QHBoxLayout();
+  battery_layout->addWidget(battery_bar);
+  battery_layout->addWidget(battery_label);
+
+  left_layout->addLayout(battery_layout);
 
   QWidget *speed_widget = new QWidget();
   QVBoxLayout *speed_layout = new QVBoxLayout(speed_widget);
@@ -117,6 +129,11 @@ MyViz::MyViz(
   left_layout->addStretch(1);
   left_layout->addWidget(speed_widget);
   left_layout->addStretch(1);
+
+  QLabel *clock_label = new QLabel("00:00:00");
+  clock_label->setAlignment(Qt::AlignCenter);
+  clock_label->setStyleSheet("font-size: 20px; color: #EEEEEE;");
+  left_layout->addWidget(clock_label);
 
   main_layout->addWidget(left_widget, 1);
   main_layout->addWidget(render_panel_.get(), 2);
